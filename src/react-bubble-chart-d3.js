@@ -89,6 +89,7 @@ export default class BubbleChart extends Component {
       graph,
       data,
       bubbleClickFun,
+      showValueFont,
       valueFont,
       labelFont,
     } = this.props;
@@ -124,7 +125,8 @@ export default class BubbleChart extends Component {
       .append("use")
       .attr("xlink:href", function(d) { return "#" + d.id; });
 
-    node.append("text")
+    if (showValueFont) {
+      node.append("text")
       .attr("class", "value-text")
       .style("font-size", `${valueFont.size}px`)
       .attr("clip-path", function(d) { return "url(#clip-" + d.id + ")"; })
@@ -142,6 +144,7 @@ export default class BubbleChart extends Component {
         return valueFont.lineWeight ? valueFont.lineWeight : 0;
       })
       .text(function(d) { return d.value; });
+    }
 
     node.append("text")
       .attr("class", "label-text")
@@ -317,6 +320,7 @@ BubbleChart.defaultProps = {
     color: '#000',
     weight: 'bold',
   },
+  showValueFont: true,
   valueFont: {
     family: 'Arial',
     size: 16,
