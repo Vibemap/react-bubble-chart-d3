@@ -125,6 +125,8 @@ export default class BubbleChart extends Component {
       .append("use")
       .attr("xlink:href", function(d) { return "#" + d.id; });
 
+    console.log('showValueFont: ', showValueFont)
+    
     if (showValueFont) {
       node.append("text")
       .attr("class", "value-text")

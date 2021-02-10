@@ -1,5 +1,5 @@
 {
-  "name": "@weknow/react-bubble-chart-d3",
+  "name": "@vibemap/react-bubble-chart-d3",
   "version": "1.0.12",
   "description": "ReactJS component to display data as a bubble chart using D3.",
   "keywords": [
