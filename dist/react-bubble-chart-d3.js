@@ -198,7 +198,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return "translate(" + width * graph.offsetX + "," + width * graph.offsetY + ")";
 	      });;
 
-	      var node = bubbleChart.selectAll(".node").data(nodes).enter().append("g").attr("class", "node").attr("transform", function (d) {
+	      var node = bubbleChart.selectAll(".node").data(nodes).enter().append("g").attr("class", function (d) {
+	        return "node " + d.data.className;
+	      }).attr("transform", function (d) {
 	        return "translate(" + d.x + "," + d.y + ")";
 	      }).on("click", function (d) {
 	        bubbleClickFun(d.label);
@@ -206,10 +208,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      node.append("circle").attr("id", function (d) {
 	        return d.id;
+	      }).attr("class", function (d) {
+	        return d.data.class;
 	      }).attr("r", function (d) {
 	        return d.r - d.r * .04;
 	      }).style("fill", function (d) {
 	        return d.data.color ? d.data.color : color(nodes.indexOf(d));
+	      }).style("fill-opacity", function (d) {
+	        return d.data.opacity;
+	      }).style("stroke", '#000000').style("stroke-opacity", function (d) {
+	        return d.data.opacity;
 	      }).style("z-index", 1).on('mouseover', function (d) {
 	        d3.select(this).attr("r", d.r * 1.04);
 	      }).on('mouseout', function (d) {
@@ -229,7 +237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        node.append("text").attr("class", "value-text").style("font-size", valueFont.size + 'px').attr("clip-path", function (d) {
 	          return "url(#clip-" + d.id + ")";
 	        }).style("font-weight", function (d) {
-	          return valueFont.weight ? valueFont.weight : 600;
+	          return valueFont.weight ? valueFont.weight : 400;
 	        }).style("font-family", valueFont.family).style("fill", function () {
 	          return valueFont.color ? valueFont.color : '#000';
 	        }).style("stroke", function () {
@@ -244,7 +252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      node.append("text").attr("class", "label-text").style("font-size", labelFont.size + 'px').attr("clip-path", function (d) {
 	        return "url(#clip-" + d.id + ")";
 	      }).style("font-weight", function (d) {
-	        return labelFont.weight ? labelFont.weight : 600;
+	        return labelFont.weight ? labelFont.weight : 400;
 	      }).style("font-family", labelFont.family).style("fill", function () {
 	        return labelFont.color ? labelFont.color : '#000';
 	      }).style("stroke", function () {

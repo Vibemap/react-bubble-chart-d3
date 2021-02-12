@@ -101,7 +101,7 @@ export default class BubbleChart extends Component {
     const node = bubbleChart.selectAll(".node")
     .data(nodes)
     .enter().append("g")
-      .attr("class", "node")
+      .attr("class", function (d) { return "node " + d.data.className })
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .on("click", function(d) {
         bubbleClickFun(d.label);
@@ -109,8 +109,13 @@ export default class BubbleChart extends Component {
 
     node.append("circle")
       .attr("id", function(d) { return d.id; })
+      .attr("class", function(d) { return d.data.class; })
       .attr("r", function(d) { return d.r - (d.r * .04); })
       .style("fill", function(d) { return d.data.color ? d.data.color : color(nodes.indexOf(d)); })
+      .style("fill-opacity", function(d) { return d.data.opacity })
+      .style("stroke", '#444444' )
+      .style("stroke-opacity", function(d) { return d.data.opacity })
+
       .style("z-index", 1)
       .on('mouseover', function(d) {
         d3.select(this).attr("r", d.r * 1.04);
@@ -133,7 +138,7 @@ export default class BubbleChart extends Component {
       .style("font-size", `${valueFont.size}px`)
       .attr("clip-path", function(d) { return "url(#clip-" + d.id + ")"; })
       .style("font-weight", (d) => {
-        return valueFont.weight ? valueFont.weight : 600;
+        return valueFont.weight ? valueFont.weight : 400;
       })
       .style("font-family", valueFont.family)
       .style("fill", () => {
@@ -153,7 +158,7 @@ export default class BubbleChart extends Component {
       .style("font-size", `${labelFont.size}px`)
       .attr("clip-path", function(d) { return "url(#clip-" + d.id + ")"; })
       .style("font-weight", (d) => {
-        return labelFont.weight ? labelFont.weight : 600;
+        return labelFont.weight ? labelFont.weight : 400;
       })
       .style("font-family", labelFont.family)
       .style("fill", () => {
